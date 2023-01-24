@@ -11,7 +11,7 @@ type SearchBarProps = {
   searchBarRef: React.MutableRefObject<HTMLDivElement>;
 };
 
-export const SearchContainer = (props: SearchBarProps) => {
+const SearchContainer = (props: SearchBarProps) => {
   return (
     <div className="main-container" ref={props.searchBarRef}>
       <C.Container>
@@ -27,3 +27,5 @@ export const SearchContainer = (props: SearchBarProps) => {
     </div>
   );
 };
+
+export default SearchContainer;
