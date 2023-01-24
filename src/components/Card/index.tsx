@@ -6,6 +6,7 @@ import { fetchPokemon } from '../../api/fetchPokemon';
 import PokemonTypeBadge from '../PokemonTypeBadge';
 import SkeletonFetching from '../Helper/SkeletonFetching/';
 import * as C from './styles';
+import { useNavigate } from 'react-router-dom';
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -13,6 +14,7 @@ interface PokemonCardProps {
 }
 
 const Card = (props: PokemonCardProps) => {
+  const navigate = useNavigate();
   const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${props.pokemon.id}.png`;
 
   const [{ color }] = pokemonTypes.filter(
@@ -21,14 +23,9 @@ const Card = (props: PokemonCardProps) => {
 
   const handleClick = async () => {
     const requestPokemon = await fetchPokemon(props.pokemon.name);
-    props.setPokemonData(requestPokemon?.data);
+    //props.setPokemonData(requestPokemon?.data);
+    navigate(`/pokemon/${requestPokemon?.data?.id}`);
     console.log(requestPokemon?.data);
-  };
-
-  const formatPokemonId = (id: number) => {
-    if (id < 10) return `#00${id}`;
-    else if (id >= 10 && id < 99) return `#0${id}`;
-    else return `#${id}`;
   };
 
   return (
@@ -66,6 +63,12 @@ const Card = (props: PokemonCardProps) => {
       </C.MoreDetailsButton>
     </C.Container>
   );
+};
+
+export const formatPokemonId = (id: number) => {
+  if (id < 10) return `#00${id}`;
+  else if (id >= 10 && id < 99) return `#0${id}`;
+  else return `#${id}`;
 };
 
 export default Card;
