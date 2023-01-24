@@ -1,14 +1,13 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
+
 import Nav from '../Nav/Nav';
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC = () => {
   return (
     <div>
       <Nav />
-      {children}
+      <Outlet />
     </div>
   );
 };

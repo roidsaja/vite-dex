@@ -10,7 +10,7 @@ const Nav = () => {
           <PokemonLogo />
         </C.Link>
         <div className="nav-link">
-          <C.Link className="nav-link-text" href="/bookmarks" target="_self">
+          <C.Link className="nav-link-text" href="/bookmark" target="_self">
             Saved Bookmarks
           </C.Link>
         </div>
