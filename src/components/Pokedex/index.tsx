@@ -1,6 +1,7 @@
 import { ReactComponent as UpArrowIcon } from '../../assets/icon-arrow-up.svg';
 import { Pokemon } from '../../interfaces/Pokemon';
 import ErrorMessage from '../Helper/ErrorMessage';
+import PokemonPagination from '../Pagination';
 import Card from '../Card';
 import * as C from './styles';
 
@@ -31,7 +32,14 @@ const Pokedex = (props: PokedexProps) => {
               />
             ))}
           </C.PokemonList>
-
+          {props.pokemonList.length > 1 && props.showPagination === true && (
+            <PokemonPagination
+              setPokemonList={props.setPokemonList}
+              searchBarRef={props.searchBarRef}
+              page={props.page}
+              setPage={props.setPage}
+            />
+          )}
           {props.pokemonList.length > 1 && props.showPagination === false && (
             <C.ButtonContainer>
               <button

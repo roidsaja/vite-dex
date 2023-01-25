@@ -1,8 +1,8 @@
 import { fetchPokemon } from './fetchPokemon';
 
 export const fetchPokemonList = async (page: number) => {
-  const offset = 9 * (page - 1);
-  const URL = `https://pokeapi.co/api/v2/pokemon?offset=${offset}`;
+  const offset = 12 * (page - 1);
+  const URL = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=12`;
 
   const response = await fetch(URL);
   const data = await response.json();
