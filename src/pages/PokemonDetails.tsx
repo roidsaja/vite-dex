@@ -8,7 +8,6 @@ import {
   Button,
   Container,
   Image,
-  Badge,
   Progress,
 } from '@nextui-org/react';
 
@@ -18,6 +17,7 @@ import { AbilitiesDescriptions, Pokemon } from '../interfaces/Pokemon';
 import { shoot } from '../utils/confetti';
 import { toggleFavorite, verifyFavorite } from '../utils/localFav';
 import { fetchPokemonAbility } from '../api/fetchPokemonAbility';
+import PokemonTypeBadge from '../components/PokemonTypeBadge';
 
 const PokemonDetails: React.FC = () => {
   const params = useParams();
@@ -30,7 +30,7 @@ const PokemonDetails: React.FC = () => {
       const resPokemon = await fetchPokemon(params.id as string);
       const resAbility = await fetchPokemonAbility(params.id as string);
       setPokemonData(resPokemon?.data);
-      setPokemonAbility(resAbility.data);
+      setPokemonAbility(resAbility?.data);
     })();
     if (pokemonData)
       setIsInFavorites(verifyFavorite(pokemonData?.id as number));
@@ -53,90 +53,107 @@ const PokemonDetails: React.FC = () => {
     </div>
   );
 
-  console.log(pokemonAbility);
   return (
-    <div>
-      <Grid.Container css={{ marginTop: '5px' }} gap={2}>
-        <Grid xs={12} sm={4}>
-          <Card isHoverable css={{ padding: '30px' }}>
-            <Card.Body>
-              <Image
-                showSkeleton
-                src={
-                  pokemonData?.sprites.other?.dream_world
-                    .front_default as string
-                }
-                alt={pokemonData?.name}
-                width="100%"
-                height={200}
-              />
-            </Card.Body>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={8}>
-          <Card>
-            <Card.Header
-              css={{ display: 'flex', justifyContent: 'space-between' }}
+    <Grid.Container css={{ marginTop: '5px' }} gap={1}>
+      <Grid xs={12} sm={4}>
+        <Card isHoverable css={{ padding: '10px' }}>
+          <Card.Body>
+            <Image
+              showSkeleton
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData?.id}.png`}
+              alt={pokemonData?.name}
+              width="100%"
+              height={200}
+            />
+          </Card.Body>
+          <Card.Footer
+            css={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <Button
+              color={!isInFavorites ? 'gradient' : 'error'}
+              ghost
+              onPress={onToggleFavorite}
             >
+              {!isInFavorites ? 'Bookmark' : 'Remove from Bookmark'}
+            </Button>
+          </Card.Footer>
+        </Card>
+      </Grid>
+      <Grid xs={12} sm={8}>
+        <Card>
+          <Card.Header
+            css={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Container direction="column" display="flex">
               <Text h1 size={30} transform="capitalize">
                 {pokemonData?.name}
               </Text>
-              <Text h1 size={30} transform="capitalize">
-                {formatPokemonId(pokemonData?.id as number)}
-              </Text>
-              <Button
-                color={!isInFavorites ? 'gradient' : 'error'}
-                ghost
-                onPress={onToggleFavorite}
+              <Container
+                css={{ padding: 0, gap: '4px' }}
+                direction="row"
+                display="flex"
               >
-                {!isInFavorites ? 'Bookmark' : 'Remove from Bookmark'}
-              </Button>
-            </Card.Header>
-            <Card.Divider>
-              {pokemonData?.types.map((entry) => (
-                <Badge enableShadow disableOutline>
-                  <Text color="white" h2 transform="capitalize">
-                    {entry.type.name}
-                  </Text>
-                </Badge>
-              ))}
-            </Card.Divider>
-            <Card.Body>
-              <Text size={30}> Sprites</Text>
-              <Container direction="row" display="flex" gap={0}>
-                <Image
-                  src={pokemonData?.sprites.front_default as string}
-                  alt={pokemonData?.name}
-                  width={150}
-                  height={150}
-                />
-                <Image
-                  src={pokemonData?.sprites.back_default as string}
-                  alt={pokemonData?.name}
-                  width={150}
-                  height={150}
-                />
-                <Image
-                  src={pokemonData?.sprites.front_shiny as string}
-                  alt={pokemonData?.name}
-                  width={150}
-                  height={150}
-                />
-                <Image
-                  src={pokemonData?.sprites.back_shiny as string}
-                  alt={pokemonData?.name}
-                  width={150}
-                  height={150}
-                />
+                {pokemonData?.types.map(({ type }) => (
+                  <PokemonTypeBadge
+                    key={type.name}
+                    type={type.name}
+                    tabIndex={false}
+                  />
+                ))}
               </Container>
-            </Card.Body>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={4}>
-          <Card>
+            </Container>
+
+            <Text h1 size={30} transform="capitalize">
+              {formatPokemonId(pokemonData?.id as number)}
+            </Text>
+          </Card.Header>
+          <Card.Divider />
+          <Card.Body>
+            <Text size={30}>Sprites</Text>
+            <Container direction="row" display="flex" gap={0}>
+              <Image
+                src={pokemonData?.sprites.front_default as string}
+                alt={pokemonData?.name}
+                width={200}
+                height={200}
+              />
+              <Image
+                src={pokemonData?.sprites.back_default as string}
+                alt={pokemonData?.name}
+                width={200}
+                height={200}
+              />
+              <Image
+                src={pokemonData?.sprites.front_shiny as string}
+                alt={pokemonData?.name}
+                width={200}
+                height={200}
+              />
+              <Image
+                src={pokemonData?.sprites.back_shiny as string}
+                alt={pokemonData?.name}
+                width={200}
+                height={200}
+              />
+            </Container>
+          </Card.Body>
+        </Card>
+      </Grid>
+      <Grid xs={12} sm={4}>
+        <Card>
+          <Card.Header>
             <Text h1 size={30}>
               Abilities
             </Text>
+          </Card.Header>
+          <Card.Divider />
+          <Card.Body>
             {pokemonData?.abilities.map((entry) => (
               <>
                 {pokemonAbility?.effect_entries.map((entry2: any) => (
@@ -157,13 +174,18 @@ const PokemonDetails: React.FC = () => {
                 ))}
               </>
             ))}
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={4}>
-          <Card>
+          </Card.Body>
+        </Card>
+      </Grid>
+      <Grid xs={12} sm={4}>
+        <Card>
+          <Card.Header>
             <Text h1 size={30}>
               Base Stat
             </Text>
+          </Card.Header>
+          <Card.Divider />
+          <Card.Body>
             {pokemonData?.stats.map((entry) => (
               <div className="flex justify-evenly gap-2 whitespace-nowrap text-center items-center m-2">
                 <Text size={14} className="w-24" transform="capitalize">
@@ -181,20 +203,25 @@ const PokemonDetails: React.FC = () => {
                 />
               </div>
             ))}
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={4}>
-          <Card>
+          </Card.Body>
+        </Card>
+      </Grid>
+      <Grid xs={12} sm={4}>
+        <Card>
+          <Card.Header>
             <Text h1 size={30}>
               Moves
             </Text>
-            <FixedSizeList width="100%" height={200} itemCount={1} itemSize={1}>
+          </Card.Header>
+          <Card.Divider />
+          <Card.Body>
+            <FixedSizeList width="100%" height={250} itemCount={1} itemSize={1}>
               {movesRow}
             </FixedSizeList>
-          </Card>
-        </Grid>
-      </Grid.Container>
-    </div>
+          </Card.Body>
+        </Card>
+      </Grid>
+    </Grid.Container>
   );
 };
 

@@ -1,6 +1,7 @@
+import { createTheme } from '@nextui-org/react';
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
   *,
   *::before,
   *::after {
@@ -63,4 +64,11 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export default GlobalStyles;
+export const darkTheme = createTheme({
+  type: 'dark',
+  theme: {
+    colors: {
+      background: '#060B28',
+    },
+  },
+});

@@ -15,7 +15,7 @@ interface PokemonCardProps {
 
 const Card = (props: PokemonCardProps) => {
   const navigate = useNavigate();
-  const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${props.pokemon.id}.png`;
+  const imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${props.pokemon.id}.png`;
 
   const [{ color }] = pokemonTypes.filter(
     (type) => props.pokemon.types[0].type.name.indexOf(type.name) !== -1
