@@ -6,15 +6,18 @@ import Waves from '../Waves';
 import PokemonType from '../PokemonTypeBadge';
 import imgSrc from '../../assets/img-charizard-min.png';
 import * as C from './styles';
+import { useNavigate } from 'react-router-dom';
 
 interface HeroSectionProps {
   setPokemonData: (data: Pokemon | null) => void;
 }
 
 const Hero: React.FC<HeroSectionProps> = ({ setPokemonData }) => {
+  const navigate = useNavigate();
   const handleClick = async () => {
     const { data } = await fetchPokemon('charizard');
     setPokemonData(data);
+    navigate(`/pokemon/${data?.id}`);
   };
 
   return (
@@ -45,12 +48,7 @@ const Hero: React.FC<HeroSectionProps> = ({ setPokemonData }) => {
           </C.Divider>
 
           <C.CharizardImg>
-            <img
-              src={imgSrc}
-              width="488"
-              height="528"
-              alt="Imagem do Charizard"
-            />
+            <img src={imgSrc} width="488" height="528" alt="Charizard" />
           </C.CharizardImg>
         </C.Content>
       </div>

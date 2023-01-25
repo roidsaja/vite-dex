@@ -4,8 +4,10 @@ export const Container = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
   padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  margin: 1.5rem 0;
+  border-bottom: 1px solid #24293f;
 
   & > svg {
     width: 9.56rem;
@@ -16,23 +18,24 @@ export const Container = styled.header`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    padding-left: 1rem;
     justify-items: start;
+    gap: 1rem;
 
     &-text {
-      margin-right: 2.75rem;
       padding-right: 0.5rem;
       cursor: pointer;
       text-decoration-line: none;
-      color: #ffb75a;
-      font-weight: 500;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background-image 1000ms ease-in;
+      background-image: linear-gradient(135deg, #ff6b00 0%, #fad6a6 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
 
       &:hover {
-        color: #ffad42;
-        text-decoration-color: #fdfdfd;
-        transform: translateY(-0.25rem) translateX(-0.25rem);
-        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1),
-          0 1px 2px -1px rgb(0 0 0 / 0.1);
+        background-image: linear-gradient(-135deg, #ff6b00 0%, #fad6a6 100%);
+        filter: drop-shadow(0 0 0.75rem crimson);
       }
     }
   }

@@ -13,10 +13,10 @@ const Nav = () => {
           <C.Link className="nav-link-text" href="/bookmark" target="_self">
             Saved Bookmarks
           </C.Link>
+          <C.Link href="https://github.com/roidsaja/vite-dex" target="_blank">
+            <GithubLogo className="github-logo" />
+          </C.Link>
         </div>
-        <C.Link href="https://github.com/roidsaja/vite-dex" target="_blank">
-          <GithubLogo className="github-logo" />
-        </C.Link>
       </C.Container>
     </div>
   );
