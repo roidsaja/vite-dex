@@ -1,4 +1,4 @@
-import React from 'react';
+import { Text, Grid, Card } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -10,20 +10,34 @@ const BookmarkLists = ({ pokemonFav }: Props) => {
 
   return (
     <>
-      <div>Your Favourites Are All Here!</div>
-      <div>
+      <Text
+        h1
+        size={60}
+        css={{
+          textGradient: '45deg, $blue600 -20%, $pink600 50%',
+        }}
+        weight="bold"
+      >
+        Your Favourites Are All Here!
+      </Text>
+      <Grid.Container gap={2} direction="row" justify="flex-start">
         {pokemonFav.map((id) => (
-          <div key={id}>
-            <div onClick={() => navigate(`/pokemon/${id}`)}>
-              <img
+          <Grid xs={6} sm={3} md={2} xl={1} key={id}>
+            <Card
+              isHoverable
+              isPressable
+              css={{ padding: 10 }}
+              onPress={() => navigate(`/pokemon/${id}`)}
+            >
+              <Card.Image
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
                 width={'100%'}
                 height={140}
               />
-            </div>
-          </div>
+            </Card>
+          </Grid>
         ))}
-      </div>
+      </Grid.Container>
     </>
   );
 };
