@@ -29,12 +29,11 @@ const PokemonDetails: React.FC = () => {
     (async () => {
       const resPokemon = await fetchPokemon(params.id as string);
       const resAbility = await fetchPokemonAbility(params.id as string);
-      setPokemonData(resPokemon?.data);
-      setPokemonAbility(resAbility?.data);
+      setPokemonData(resPokemon.data);
+      setPokemonAbility(resAbility.data);
     })();
-    if (pokemonData)
-      setIsInFavorites(verifyFavorite(pokemonData?.id as number));
-  }, []);
+    if (pokemonData) setIsInFavorites(verifyFavorite(pokemonData.id as number));
+  });
 
   const onToggleFavorite = () => {
     toggleFavorite(pokemonData?.id as number);
